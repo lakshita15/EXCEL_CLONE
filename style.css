@@ -1,0 +1,267 @@
+*{
+    box-sizing: border-box;
+}
+html,body{
+    margin: 0px;
+    padding: 0px;
+}
+.bar{
+    background-color: #147018;
+    font-weight: bold;
+    text-align: center;
+    text-decoration-line: underline;
+    min-height: 25px;
+    
+}
+
+.menu-container{
+    border: 1px solid;
+    height: 35px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    position: relative;
+}
+.file{
+    width: 59px;
+    background-color: darkgreen;
+    color: white;
+    font-size: larger;
+    border-right: 2px solid white;
+}
+
+.home{
+    width: 59px;
+    background-color: darkgreen;
+    color: white;
+    font-size: larger;
+
+}
+.formula{
+    font-family: cursive;
+    border: 2px solid BLACK;
+    height: 30px;
+}
+
+.menu-options-container{
+    border: 3px solid green;
+    height: 50px;
+}
+.content{
+    border: 1px solid;
+    height: calc(100vh - 147px );
+    background: bottom;
+    overflow: auto;
+    position: relative;
+}
+.cells{
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    background-image: url(bk.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-attachment: fixed;
+    background-color: white;
+    background-blend-mode: unset;
+}
+
+.cell{
+    min-height: 25px;
+    min-width: 70px;
+    border: 1px solid;
+    text-align: center;
+    top: 20px;
+    max-width: 70px;
+}
+.cell:hover{
+    box-shadow: 3px 2px 4px 1px grey;
+}
+.row{
+    display: flex;
+}
+.sheet{
+    border: 1px solid darkgreen;
+    height: 40px;
+}
+.top-left-cell{
+    border: 2px solid black;
+    height: 20px;
+    width: 30px;
+   
+    position: absolute;
+    z-index: 3;
+     background-color: wheat ;
+}
+.top-row{
+    display: flex;
+    position: absolute;
+    left: 30px;
+    height: 20px;
+    background: aliceblue;
+    z-index: 2;
+}
+.left-col{
+    position: absolute;
+    top: 20px;
+    background: aliceblue;
+    z-index: 2;
+}
+
+
+.top-row-cell{
+    min-width: 70px;
+    border: 1px solid black;
+    text-align: center;
+    font-family: cursive;
+}
+.left-col-cell{
+    height: 25px;
+    width: 30px;
+    border: 1px solid black;
+    text-align: center;
+}
+.file-menu-options{
+    position: absolute;
+    width: 114px;
+    justify-content: space-around;
+    top: 25px;
+    left: 40px;
+    z-index: 4;
+    box-shadow: 4px 3px 3px darkslateblue;
+    display: none;
+   }
+.new{
+    cursor: pointer;
+    width: 114px;
+    min-height: 30px;
+    background: white;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 6px;
+}
+.open{
+    cursor: pointer;
+    width: 114px;
+    min-height: 30px;
+    background: white;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border-top: inset;
+    padding-left: 6px;
+}
+.save{
+    cursor: pointer;
+    width: 114px;
+    min-height: 30px;
+    background: white;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border-top: inset;
+    padding-left: 6px;
+}
+.cell-formatting{
+    display: flex;
+    min-height: 30px;
+    min-width: 250px;
+    justify-content: space-evenly;
+}
+.cell-font-name{
+    border: none;
+    font-family: cursive;
+   
+}
+.sheets{
+    font-size: 31px;
+    /* border: none; */
+    height: 35px;
+    border: 2px solid black;
+    font-family: inherit;
+}
+.cellsize{
+    display: flex;
+    justify-content: center;
+    margin-top: 2px;
+    width: 91px;
+    height: 24px;
+    margin-left: 2px;
+    font-family: cursive;
+    border-left: inset;
+    padding-left: 4px;
+    border-right: outset;
+}
+.cell-text-size{
+    display: flex;
+    justify-content: space-evenly;
+    width: 230px;
+    height: 24px;
+    border-left: inset;
+    margin-top: 2px;
+    align-items: flex-end;
+}
+.bold{
+    box-shadow: 3px 3px 3px grey;
+    background-color: white;
+    border: none;
+    height: 25px;
+    width: 25px;
+}
+.underline{
+    box-shadow: 3px 3px 3px grey;
+    background-color: white;
+    border: none;
+    height: 25px;
+    width: 25px;
+}
+.italic{
+    box-shadow: 3px 3px 3px grey;
+    background-color: white;
+    border: none;
+    height: 25px;
+    width: 25px;
+}
+.linethrough{
+    box-shadow: 3px 3px 3px grey;
+    background-color: white;
+    border: none;
+    height: 25px;
+    width: 25px;
+    
+}
+
+.center{
+    margin-left: 11px;
+   
+}
+.right{
+    border-right: 3px outset;
+    margin-left: 11px;
+    padding-right: 16px;
+    height: 22px;
+   
+}
+.cell-alignment{
+    display: flex;
+    margin-left: 11px;
+    margin-top: 3px;
+}
+.cell-color{
+   
+    padding-left: 5px;
+    margin-top: 3px;
+    border-right: outset;
+    height: 23px;
+    padding-right: 13px;
+}
+.home-menu-options{
+    display: flex;
+}
+.active{
+    display: block;
+}
+.home-active{
+    display: flex;
+}

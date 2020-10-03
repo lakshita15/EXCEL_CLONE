@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Dancing+Script:wght@700&family=Lobster&family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="bar" style="font-family: cursive;max-height: fit-content;text-decoration-color: black;font-size: xx-large;text-shadow: 3px 2px 2px whitesmoke;/* justify-content: space-between; *//* display: flex; */position: relative;">EXCEL
+   <img src="person.png" alt style="
+   position: absolute;
+   max-height: 44px;
+   right: 6px;
+">
+ </div>
+    <div class="menu-container">
+       <img src="download (1).png" style="height:30px ; width: 40px;">
+
+
+        <div class="file" id="file">File</div>
+
+        <div class="file-menu-options">
+            <div class="new" >New</div>
+            <div class="open">Open</div>
+            <div class="save">Save</div>
+        </div>
+    
+        <div class="home" id="home">Home 
+        </div>
+
+       
+    </div>
+    <div class="home-menu-options" style="min-height: 30px;">
+
+        <div class="cell-formatting">
+                 <img src="REDO.png" style="height: 27px;">
+                
+                <select name="font" id="cell-font"style="
+                height: 25px;
+                display: flex;
+                align-items: center;
+                border: none;
+                margin-top: 1.5px;
+                border-left: inset;
+                width: 150px;
+                padding-left: 5px;
+            ">
+                 
+                    <option value="'Times New Roman', Times, serif" style="font-family: 'Times New Roman', Times, serif;">Times New Roman</option>
+    
+                    <option value="Arial, Helvetica, sans-serif" style="font-family: Arial, Helvetica, sans-serif;">Arial</option>
+                    <option value="cursive" style="font-family: cursive;">cursive</option>
+                    <option value="monospace" style="font-family: monospace ;">monospace</option>
+                    <option value="'Anton', sans-serif" style="font-family: 'Anton', sans-serif;">Anton</option>
+                    <option value="'Dancing Script', cursive" style="font-family:'Dancing Script', cursive ;">dancing script</option>
+                    <option value="'Lobster', cursive" style="font-family:'Lobster', cursive; ">Lobster</option>
+                    <option value="'Roboto', sans-serif" style="font-family: 'Roboto', sans-serif;">Roboto</option>
+    
+                 </select>
+                     
+         </div>
+
+         <!--bold italic underline-->
+ 
+         <div class="cell-text-size">
+             <div class="bold">
+                 <input type="button" value="B" style="
+                 /* border: none; */
+                 background-color: white;
+                 font-family: cursive;
+                 font-size: smaller;
+                 height: 25px;
+                 width: 25px;
+             ">
+             </div>
+             <div class="underline">
+                 <input type="button" value="U"style="
+                 /* border: none; */
+                 background-color: white;
+                 font-family: cursive;
+                 font-size: smaller;
+                 height: 25px;
+                 width: 25px;
+             ">
+             </div>
+             <div class="italic">
+             <input type="button" value="I"style="
+             /* border: none; */
+             background-color: white;
+             font-family: cursive;
+             font-size: smaller;
+             height: 25px;
+             width: 25px;
+         ">
+             </div>
+             <div class="linethrough">
+                 <input id = "linethrough" type="button" value="S" style="
+                 /* border: none; */
+                 background-color: white;
+                 font-family: cursive;
+                 font-size: smaller;
+                 height: 25px;
+                 text-decoration-line: line-through;
+                 width: 25px;
+             ">
+             </div>
+         </div>     
+     <!--cell size-->    
+         <div class="cellsize" style="
+         border: black;
+         width: 91px;
+         height: 24px;
+         margin-left: 2px;
+         font-family: cursive;
+         border-left: inset;
+         padding-left: 4px;
+         border-right: outset;
+     ">
+
+     <select name="size" id="size">
+         <option value="10"style="font-family: cursive;">10</option>
+         <option value="12"style="font-family: cursive;">12</option>
+         <option value="14"style="font-family: cursive;">14</option>
+         <option value="16"style="font-family: cursive;">16</option>
+         <option value="20"style="font-family: cursive;">20</option>
+         <option value="24"style="font-family: cursive;">24</option>
+         <option value="30"style="font-family: cursive;">30</option>
+         <option value="36"style="font-family: cursive;">36</option>
+         
+     </select>
+  </div>
+
+ <!--cell alignment--> 
+ <div class="cell-alignment">
+    <div class="left">
+        <svg id="left" width="25px" height="22px" viewBox="0 0 16 16" class="bi bi-text-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+        
+    </div>
+    <div class="center">
+        <svg id="center" width="25px" height="22px" viewBox="0 0 16 16" class="bi bi-text-center" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M4 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+    </div>
+    <div class="right">
+        <svg id="right" width="25px" height="22px" viewBox="0 0 16 16" class="bi bi-justify-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-4-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+    </div>
+</div>
+ <!--cell color--> 
+ <div class="cell-color"  >
+     <img src="plate.png" style="
+     height: 16px;
+ " >
+    <input type="color" name="cell-background" id="cell-background" value="" style="
+    height: 26px;
+">
+    <input type="color" name="cell-text" id="cell-text" value="" style="
+    height: 26px;
+">
+</div>
+
+</div>
+    <div class="formula">
+        Formula
+        <input type="text" class="address" readonly style="border: outset;">
+        <input type="text" class="cell-formula" style="border: outset;">
+    </div>
+    
+    <div class="content" >
+        
+        <div class="top-left-cell"></div>
+        <div class="top-row">
+            <%for( let j = 0 ; j < 26 ; j++){%>
+                <div class="top-row-cell" c-id=<%=j%>> 
+                    <%=String.fromCharCode(65+j) %>
+                </div>
+           <%}%>
+            
+        </div>
+        <div class="left-col">
+            <% for(let i=0 ; i<100 ; i++) {%>
+                        <div class="left-col-cell" c-id=<%=i%>> <%=i+1%></div>
+                <%}%>
+        </div>
+
+
+        <div class="cells">
+            <% for(let i=0 ; i<100 ; i++) {%>
+                <div class="row">
+                    <%for(let j=0 ; j<26 ; j++){%>
+                        <div class="cell" contenteditable="true" r-id=<%=i%> c-id=<%=j%>></div>
+                        <%}%>
+                </div>
+                <%}%>
+        </div>
+
+    </div>
+
+    <div class="sheets">
+        Sheets
+        <img src="plus.png"  style="height:23px
+        ; width: 19px;">
+    </div>
+<script src="./scriptnew.js"></script>
+</body>
+</html>
