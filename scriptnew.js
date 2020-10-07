@@ -2,413 +2,420 @@ let $ = require("jquery");
 let fs = require("fs");
 let dialog = require("electron").remote.dialog;
 
-$("document").ready(function(){
-    let db; //database 
-    let lsc;
-
-$(".new").on("click" , function(){
+(function () {
+  let db; //database 
+  let lsc;
+  console.log($('.new'));
+  console.log(document.querySelector('.new'))
+  document.querySelector(".new").addEventListener("click", function () {
     console.log("clicked new")
-    db =[];
-    let allrows = $(".cells .row"); 
+    db = [];
+    console.log(document.querySelectorAll('.cell .row'));
+    console.log($('.cell .row'));
+    let allrows = document.querySelectorAll(".cells .row");
     //console.log(allrows.length); //100 rows
-    
-    for(let i =0;i<allrows.length;i++){
-        let row =[];
-        let allcolsinrow = $(allrows[i]).find(".cell");
-        for(let j = 0;j<allcolsinrow.length;j++){
-            let address = getaddressfromcolid(i,j);  
-    
-            let cellobject ={
-                    name: address ,
-                    value: "",
-                    formula: "",
-                    parent :[] ,
-                    childrens: [] ,
-                    cellFormatting:{ bold:false , underline:false , italic:false , linethrough :false } , cellalignment: "center",fontsize: "16px",textcolor : "black",cellfont : "arial" ,background : "white"
-                  };
-                  row.push(cellobject);
 
-                            /**********************
-                             * Set the CSS property and value:
-                            $(selector).css(property,value)
-                        **************** */
-     $(allcolsinrow[j]).html("");
+    for (let i = 0; i < allrows.length; i++) {
+      let row = [];
+      console.log($(allrows[i]));
+      console.log(allrows[i].querySelector('.cell'))
+      let allcolsinrow = allrows[i].querySelectorAll(".cell");
 
-    $(allcolsinrow[j]).css("font-weight", "normal");
-    $(allcolsinrow[j]).css("text-align", "center");
-    // $(allcolsinrow[j]).css("background", "white");
-    $(allcolsinrow[j]).css("font-family", "cursive");
-    $(allcolsinrow[j]).css("font-size", "16px");
-    $(allcolsinrow[j]).css("text-decoration","none");
-    $(allcolsinrow[j]).css("text-decoration-line", "none")
-    $(allcolsinrow[j]).css("color"  , "black");
-}
-   db.push(row);
+      for (let j = 0; j < allcolsinrow.length; j++) {
+        let address = getaddressfromcolid(i, j);
+
+        let cellobject = {
+          name: address,
+          value: "",
+          formula: "",
+          parent: [],
+          childrens: [],
+          cellFormatting: { bold: false, underline: false, italic: false, linethrough: false }, cellalignment: "center", fontsize: "16px", textcolor: "black", cellfont: "arial", background: "white"
+        };
+        row.push(cellobject);
+
+        /**********************
+         * Set the CSS property and value:
+        $(selector).css(property,value)
+    **************** */
+        const data = allcolsinrow[j];
+        data.innerHTML = "";
+        data.style.cssText = `font-weight:normal;
+        text-align:center;
+        font-family:cursive;
+        font-size:16px;
+        text-decoration:none;
+        text-decoration-line:none;
+        color:black;
+        `
+
+      }
+      db.push(row);
     }
- $(".address , .cell-formula").val("");   
- })
+    document.querySelector(".address , .cell-formula").value = "";
+  })
 
-//open
+  //open
 
-$(".open").on("click", function(){
-console.log("open clicked")
-let paths = dialog.showOpenDialogSync();
-let path = paths[0];
-let data = fs.readFileSync(path);
-// console.log(data);
-data = JSON.parse(data);
-// console.log(data);
-db=data;
-let allRows = $(".cells .row");
-    for(let i=0 ; i<allRows.length ; i++){
+  document.querySelector(".open").addEventListener("click", function () {
+    console.log("open clicked")
+    let paths = dialog.showOpenDialogSync();
+    let path = paths[0];
+    let data = fs.readFileSync(path);
+    // console.log(data);
+    data = JSON.parse(data);
+    // console.log(data);
+    db = data;
+    let allRows = $(".cells .row");
+    for (let i = 0; i < allRows.length; i++) {
       let allCellsInARow = $(allRows[i]).find(".cell");
-      for(let j=0 ; j<allCellsInARow.length ; j++){
+      for (let j = 0; j < allCellsInARow.length; j++) {
         let value = db[i][j].value;
         $(allCellsInARow[j]).html(value);
-        $(allCellsInARow[j]).css("font-weight" , db[i][j].cellFormatting.bold ? "bold" : "normal");
-        $(allCellsInARow[j]).css("font-style" , db[i][j].cellFormatting.italic ? "italic" : "normal");
-        $(allCellsInARow[j]).css("text-decoration" , db[i][j].cellFormatting.underline ? "underline" : "none");
-        $(allCellsInARow[j]).css("text-decoration-line" , db[i][j].cellFormatting.linethrough ? "line-through" : "none");
-        $(allCellsInARow[j]).css("text-align" , `${db[i][j].cellAlignment}`);
-        $(allCellsInARow[j]).css("font-size" , `${db[i][j].fontsize}`);
-        $(allCellsInARow[j]).css("color" , `${db[i][j].textColor}`);
+        $(allCellsInARow[j]).css("font-weight", db[i][j].cellFormatting.bold ? "bold" : "normal");
+        $(allCellsInARow[j]).css("font-style", db[i][j].cellFormatting.italic ? "italic" : "normal");
+        $(allCellsInARow[j]).css("text-decoration", db[i][j].cellFormatting.underline ? "underline" : "none");
+        $(allCellsInARow[j]).css("text-decoration-line", db[i][j].cellFormatting.linethrough ? "line-through" : "none");
+        $(allCellsInARow[j]).css("text-align", `${db[i][j].cellAlignment}`);
+        $(allCellsInARow[j]).css("font-size", `${db[i][j].fontsize}`);
+        $(allCellsInARow[j]).css("color", `${db[i][j].textColor}`);
         // $(allCellsInARow[j]).css("background" , `${db[i][j].background}`);
-        $(allCellsInARow[j]).css("font-family" , `${db[i][j].cellfont}`);
+        $(allCellsInARow[j]).css("font-family", `${db[i][j].cellfont}`);
       }
     }
 
-})
+  })
 
 
-$(".save").on("click", function(){
+  $(".save").on("click", function () {
     console.log("save clicked")
 
     let path = dialog.showSaveDialogSync();
     console.log(path);
     let data = JSON.stringify(db);
-    fs.writeFileSync(path , data);
+    fs.writeFileSync(path, data);
     alert("File Saved !!");
-    })
-$(".file").on("click", function(){
-let check = $(".file-menu-options").hasClass("active");
-if(check){
-  $(".file-menu-options").removeClass("active");
-  
-  
-}else{
-  $(".file-menu-options").addClass("active");
-}
+  })
+  $(".file").on("click", function () {
+    let check = $(".file-menu-options").hasClass("active");
+    if (check) {
+      $(".file-menu-options").removeClass("active");
 
 
-})
-$(".home").on("click", function(){
-  let check = $(".home-menu-options").hasClass("home-active");
-  if(check){
-    $(".home-menu-options").removeClass("home-active");
+    } else {
+      $(".file-menu-options").addClass("active");
+    }
 
-  $(".content").css("height","calc(100vh - 147px )");
 
-  }else{
-    $(".home-menu-options").addClass("home-active");
-    $(".content").css("height","calc(100vh - 177px )");
-  }
-  
-})
-// set height
-$(".cell").on("keyup" , function(){
-  let height  = $(this).height();
-let rowid = Number($(this).attr("r-id"));
-     let leftcol = $(".left-col-cell")[rowid];
-     $(leftcol).height(height);
-     console.log(height);
+  })
+  $(".home").on("click", function () {
+    let check = $(".home-menu-options").hasClass("home-active");
+    if (check) {
+      $(".home-menu-options").removeClass("home-active");
 
-})
-//cell alignment
-$("#left").on("click" , function(){
-  console.log("clicked left");
-let object = getcellobject(lsc);
-$(lsc).css("text-align","left");
-object.cellAlignment= "left";
-})
+      $(".content").css("height", "calc(100vh - 147px )");
 
-$("#center").on("click" , function(){
-  console.log("clicked center");
-let object = getcellobject(lsc);
-$(lsc).css("text-align","center");
-object.cellAlignment= "center";
-})
+    } else {
+      $(".home-menu-options").addClass("home-active");
+      $(".content").css("height", "calc(100vh - 177px )");
+    }
 
-$("#right").on("click" , function(){
-  console.log("clicked right");
-let object = getcellobject(lsc);
-$(lsc).css("text-align","right");
-object.cellAlignment= "right";
-})
+  })
+  // set height
+  $(".cell").on("keyup", function () {
+    let height = $(this).height();
+    let rowid = Number($(this).attr("r-id"));
+    let leftcol = $(".left-col-cell")[rowid];
+    $(leftcol).height(height);
+    console.log(height);
 
-//cell style
-$(".bold").on("click" , function(){
-  let cellObject = getcellobject(lsc);
-  $(lsc).css("font-weight" , cellObject.cellFormatting.bold ?  "normal"  : "bold" );
-  cellObject.cellFormatting.bold = !cellObject.cellFormatting.bold;
-})
+  })
+  //cell alignment
+  $("#left").on("click", function () {
+    console.log("clicked left");
+    let object = getcellobject(lsc);
+    $(lsc).css("text-align", "left");
+    object.cellAlignment = "left";
+  })
 
-$(".underline").on("click" , function(){
-  let cellObject = getcellobject(lsc);
-  $(lsc).css("text-decoration" , cellObject.cellFormatting.underline ?  "none"  : "underline" );
-  cellObject.cellFormatting.underline = !cellObject.cellFormatting.underline;
-})
+  $("#center").on("click", function () {
+    console.log("clicked center");
+    let object = getcellobject(lsc);
+    $(lsc).css("text-align", "center");
+    object.cellAlignment = "center";
+  })
 
-$(".italic").on("click" , function(){
-  let cellObject = getcellobject(lsc);
-  $(lsc).css("font-style" , cellObject.cellFormatting.italic ?  "normal"  : "italic" );
-  cellObject.cellFormatting.italic = !cellObject.cellFormatting.italic;
-})
-$("#linethrough").on("click" , function(){
-  console.log("clicked strike")
-  let cellObject = getcellobject(lsc);
-  $(lsc).css("text-decoration-line" , cellObject.cellFormatting.linethrough? "none": "line-through");
-  cellObject.cellFormatting.linethrough =! cellObject.cellFormatting.linethrough;
-})
+  $("#right").on("click", function () {
+    console.log("clicked right");
+    let object = getcellobject(lsc);
+    $(lsc).css("text-align", "right");
+    object.cellAlignment = "right";
+  })
 
-//cell-font
-$("#cell-font").on("click" , function(){
-  let cellobject = getcellobject(lsc);
-   let currfont = $("#cell-font").val();
-  $(lsc).css("font-family",currfont );
-cellobject.cellfont= `${currfont}`;
-// console.log(db);
-})
+  //cell style
+  $(".bold").on("click", function () {
+    let cellObject = getcellobject(lsc);
+    $(lsc).css("font-weight", cellObject.cellFormatting.bold ? "normal" : "bold");
+    cellObject.cellFormatting.bold = !cellObject.cellFormatting.bold;
+  })
 
-//cell size
-$("#size").on("click" , function(){
+  $(".underline").on("click", function () {
+    let cellObject = getcellobject(lsc);
+    $(lsc).css("text-decoration", cellObject.cellFormatting.underline ? "none" : "underline");
+    cellObject.cellFormatting.underline = !cellObject.cellFormatting.underline;
+  })
 
-let cellobject = getcellobject(lsc);
-let currsize = $("#size").val();
-$(lsc).css("font-size", `${currsize}px`);
-cellobject.fontsize =  `${currsize}px`;
-// console.log(db);
-})
+  $(".italic").on("click", function () {
+    let cellObject = getcellobject(lsc);
+    $(lsc).css("font-style", cellObject.cellFormatting.italic ? "normal" : "italic");
+    cellObject.cellFormatting.italic = !cellObject.cellFormatting.italic;
+  })
+  $("#linethrough").on("click", function () {
+    console.log("clicked strike")
+    let cellObject = getcellobject(lsc);
+    $(lsc).css("text-decoration-line", cellObject.cellFormatting.linethrough ? "none" : "line-through");
+    cellObject.cellFormatting.linethrough = !cellObject.cellFormatting.linethrough;
+  })
 
-//text color
-$("#cell-background").on("click" , function(){
-  let cellobject = getcellobject(lsc);
-  console.log("hi");
-  let currcolor = $("#cell-background").val();
-  $(lsc).css("background-color" , currcolor);
-  cellobject.background = `${currcolor}`;
-})
+  //cell-font
+  $("#cell-font").on("click", function () {
+    let cellobject = getcellobject(lsc);
+    let currfont = $("#cell-font").val();
+    $(lsc).css("font-family", currfont);
+    cellobject.cellfont = `${currfont}`;
+    // console.log(db);
+  })
 
-$("#cell-text").on("click" , function(){
-let cellobject = getcellobject(lsc);
-let currtextcolor = $("#cell-text").val();
-$(lsc).css("color" , currtextcolor);
-cellobject.textcolor = `${currtextcolor}`;
+  //cell size
+  $("#size").on("click", function () {
 
-})
-   
- $(".cell").on("click" , function(){
+    let cellobject = getcellobject(lsc);
+    let currsize = $("#size").val();
+    $(lsc).css("font-size", `${currsize}px`);
+    cellobject.fontsize = `${currsize}px`;
+    // console.log(db);
+  })
+
+  //text color
+  $("#cell-background").on("click", function () {
+    let cellobject = getcellobject(lsc);
+    console.log("hi");
+    let currcolor = $("#cell-background").val();
+    $(lsc).css("background-color", currcolor);
+    cellobject.background = `${currcolor}`;
+  })
+
+  $("#cell-text").on("click", function () {
+    let cellobject = getcellobject(lsc);
+    let currtextcolor = $("#cell-text").val();
+    $(lsc).css("color", currtextcolor);
+    cellobject.textcolor = `${currtextcolor}`;
+
+  })
+
+  $(".cell").on("click", function () {
     console.log("clicked cell");
-    
-    let rowid= Number($(this).attr("r-id"));
-    let colid= Number($(this).attr("c-id"));
-    
-    let address =   String.fromCharCode(65 + colid) + (rowid+1);     
-    $(".address").val(address);
-    let cellobject  = getcellobject(this);
-    $(".cell-formula").val(cellobject.formula);
-})
 
-$(".cell").on("blur" , function(){
+    let rowid = Number($(this).attr("r-id"));
+    let colid = Number($(this).attr("c-id"));
+
+    let address = String.fromCharCode(65 + colid) + (rowid + 1);
+    $(".address").val(address);
+    let cellobject = getcellobject(this);
+    $(".cell-formula").val(cellobject.formula);
+  })
+
+  $(".cell").on("blur", function () {
     lsc = this;
 
-    let  value =  Number($(this).text());
+    let value = Number($(this).text());
     let cellobject = getcellobject(this);
-   if(value != cellobject.value){
-        cellobject.value = value;
-        if(cellobject.formula){ 
-            removeFormula(cellobject);
-            $(".cell-formula").val("");
-        }
-        updatechildren(cellobject);
+    if (value != cellobject.value) {
+      cellobject.value = value;
+      if (cellobject.formula) {
+        removeFormula(cellobject);
+        $(".cell-formula").val("");
+      }
+      updatechildren(cellobject);
     }
-})
+  })
 
-$(".cell-formula").on("blur" , function(){
-    
-    let formula = $(this).val(); 
+  $(".cell-formula").on("blur", function () {
+
+    let formula = $(this).val();
     console.log(formula);
     let cellobject = getcellobject(lsc);
-    if(formula){
-        if( cellobject.formula != formula){
+    if (formula) {
+      if (cellobject.formula != formula) {
         removeFormula(cellobject);
-        }
-    
-    if(addformula(formula)){
-       alert("Cycle detection");
-      }else{
+      }
+
+      if (addformula(formula)) {
+        alert("Cycle detection");
+      } else {
         updatechildren(cellobject);
 
+      }
     }
-  } 
-                        
-})
- 
 
-$(".content").on("scroll" , function(){
+  })
+
+
+  $(".content").on("scroll", function () {
     let topOffset = $(this).scrollTop();
     let leftOffset = $(this).scrollLeft();
 
-    $(".top-left-cell , .top-row").css("top" , topOffset+"px");
-    $(".top-left-cell , .left-col").css("left" , leftOffset+"px");
+    $(".top-left-cell , .top-row").css("top", topOffset + "px");
+    $(".top-left-cell , .left-col").css("left", leftOffset + "px");
 
-})
- 
-//formula
+  })
 
-function removeFormula(cellobject){
-    
-    cellobject.formula ="";
-    for(let i=0 ; i<cellobject.parent.length ; i++){
-        let parentname = cellobject.parent[i];
-        let obj = getRowIdColIdFromAddress(parentname);
-        let parentcellobject = db[obj.rowId][obj.colId];
-        let newChildrensOfParent = parentcellobject.childrens.filter( function(child){
-            return child != cellobject.name;
-        })
-        parentcellobject.childrens = newChildrensOfParent;
+  //formula
+
+  function removeFormula(cellobject) {
+
+    cellobject.formula = "";
+    for (let i = 0; i < cellobject.parent.length; i++) {
+      let parentname = cellobject.parent[i];
+      let obj = getRowIdColIdFromAddress(parentname);
+      let parentcellobject = db[obj.rowId][obj.colId];
+      let newChildrensOfParent = parentcellobject.childrens.filter(function (child) {
+        return child != cellobject.name;
+      })
+      parentcellobject.childrens = newChildrensOfParent;
     }
-   
-    cellobject.parent = [];
-}
 
-/*************************************
- * ADD FORMULA CALC VALUE , ADD FORMULA  , UPDATE DB , UPDATE UI
- * *************************************/
-function addformula(formula){
+    cellobject.parent = [];
+  }
+
+  /*************************************
+   * ADD FORMULA CALC VALUE , ADD FORMULA  , UPDATE DB , UPDATE UI
+   * *************************************/
+  function addformula(formula) {
     let cellobject = getcellobject(lsc)
     cellobject.formula = formula;
     let formulaArray = formula.split(" ");
 
-let children = cellobject.childrens;
-for( let i = 0 ; i <children.length; i++ ){
-    for( let j = 0 ; j < formulaArray.length ; j++){
-        if(children[i] == formulaArray[j]|| formulaArray[j]== cellobject.name){
-            console.log("1");
+    let children = cellobject.childrens;
+    for (let i = 0; i < children.length; i++) {
+      for (let j = 0; j < formulaArray.length; j++) {
+        if (children[i] == formulaArray[j] || formulaArray[j] == cellobject.name) {
+          console.log("1");
           return true;
         }
+      }
     }
-}
-console.log(cellobject.name);
-console
-for( let j = 0 ; j < formulaArray.length ; j++){
-    if(formulaArray[j]== cellobject.name){
+    console.log(cellobject.name);
+    console
+    for (let j = 0; j < formulaArray.length; j++) {
+      if (formulaArray[j] == cellobject.name) {
         console.log("2");
-      return true;
+        return true;
+      }
     }
-}
-console.log(formula+"....",cellobject.address);
-solveformula(cellobject);
+    console.log(formula + "....", cellobject.address);
+    solveformula(cellobject);
     return false;
-}
+  }
 
-/************************************
- * formula solve 
- * ************************************/
-function solveformula(cellobject){
+  /************************************
+   * formula solve 
+   * ************************************/
+  function solveformula(cellobject) {
     let formula = cellobject.formula;
     console.log(formula);
-        
-    let fcomps = formula.split(" "); 
-    for(let i =0;i<fcomps.length;i++){
-        let fcomp = fcomps[i];
-        let cellName = fcomp[0];
-        if (cellName >= "A" && cellName <= "Z") { 
-            let {rowId , colId} = getRowIdColIdFromAddress(fcomp);
-            let parentcellobject = db[rowId][colId];
 
-            
-            parentcellobject.childrens.push(cellobject.name);
-            cellobject.parent.push(fcomp);
-            let value = parentcellobject.value;
-            formula = formula.replace( fcomp , value  );
-        }
+    let fcomps = formula.split(" ");
+    for (let i = 0; i < fcomps.length; i++) {
+      let fcomp = fcomps[i];
+      let cellName = fcomp[0];
+      if (cellName >= "A" && cellName <= "Z") {
+        let { rowId, colId } = getRowIdColIdFromAddress(fcomp);
+        let parentcellobject = db[rowId][colId];
+
+
+        parentcellobject.childrens.push(cellobject.name);
+        cellobject.parent.push(fcomp);
+        let value = parentcellobject.value;
+        formula = formula.replace(fcomp, value);
+      }
     }
     let value = eval(formula);
     cellobject.value = value;
     $(lsc).text(value);
-}
+  }
 
-/***********************************************
- * FUNCTION recalculate => ui, db update , fetch formula ; evaluate the formula
- * ***********************************************/
-    function reCalculate(cellobject){
+  /***********************************************
+   * FUNCTION recalculate => ui, db update , fetch formula ; evaluate the formula
+   * ***********************************************/
+  function reCalculate(cellobject) {
     let formula = cellobject.formula;
     // ( A1 + A2 )
     let fComps = formula.split(" ");
     for (let i = 0; i < fComps.length; i++) {
       let fComp = fComps[i];
-      
+
       let cellName = fComp[0];
       if (cellName >= "A" && cellName <= "Z") {
-        
-        let {rowId , colId } = getRowIdColIdFromAddress(fComp);
+
+        let { rowId, colId } = getRowIdColIdFromAddress(fComp);
         let parentCellObject = db[rowId][colId];
         let value = parentCellObject.value;
-        formula = formula.replace( fComp , value  );
+        formula = formula.replace(fComp, value);
       }
     }
     // ( 10 + 20 )
     let value = eval(formula);
     cellobject.value = value;
-    let {rowId , colId } = getRowIdColIdFromAddress(cellobject.name);
-    $(`.cell[r-id=${rowId}][c-id=${colId}]`).text(value); 
-   
+    let { rowId, colId } = getRowIdColIdFromAddress(cellobject.name);
+    $(`.cell[r-id=${rowId}][c-id=${colId}]`).text(value);
+
   }
 
-/***********************************************
- * FUNCTION UPDATE CHILDREN
- * ***********************************************/
+  /***********************************************
+   * FUNCTION UPDATE CHILDREN
+   * ***********************************************/
 
-    function updatechildren(cellobject){
-      let childrens = cellobject.childrens;
-      for( let i = 0; i< childrens.length ; i++){
-           let childname = childrens[i];
+  function updatechildren(cellobject) {
+    let childrens = cellobject.childrens;
+    for (let i = 0; i < childrens.length; i++) {
+      let childname = childrens[i];
 
-            let {rowId , colId} = getRowIdColIdFromAddress(childname);
-            let childobject = db[rowId][colId];
-           reCalculate(childobject);
-            updatechildren(childobject);
-        }
+      let { rowId, colId } = getRowIdColIdFromAddress(childname);
+      let childobject = db[rowId][colId];
+      reCalculate(childobject);
+      updatechildren(childobject);
     }
+  }
 
-  function init(){
-     $(".new").trigger("click");
-   };
- init();
+  function init() {
+    $(".new").trigger("click");
+  };
+  init();
 
-    function getaddressfromcolid(i,j){
-        let row = i+1;
-        let col = String.fromCharCode(65+j);
-        let address = `${col}${row}`;
+  function getaddressfromcolid(i, j) {
+    let row = i + 1;
+    let col = String.fromCharCode(65 + j);
+    let address = `${col}${row}`;
 
-        return address;
-    }
+    return address;
+  }
 
-function getRowIdColIdFromAddress(address) {
+  function getRowIdColIdFromAddress(address) {
     let row = Number(address.substring(1)) - 1;
     let col = address.charCodeAt(0) - 65;
 
     return {
-        rowId : row,
-        colId : col
+      rowId: row,
+      colId: col
     };
   }
 
-function getcellobject(elem){
+  function getcellobject(elem) {
 
-let rowid = Number($(elem).attr("r-id"));
-let colid = Number($(elem).attr("c-id"));
-let cellobject = db[rowid][colid];
-   return cellobject;
-}
-});
+    let rowid = Number($(elem).attr("r-id"));
+    let colid = Number($(elem).attr("c-id"));
+    let cellobject = db[rowid][colid];
+    return cellobject;
+  }
+})();
